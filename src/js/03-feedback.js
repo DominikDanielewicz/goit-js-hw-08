@@ -6,24 +6,21 @@ const email = document.querySelector('input');
 const message = document.querySelector('textarea');
 const LOCALSTORAGE_KEY = 'feedback-form-state';
 
-updateForm();
-
 form.addEventListener(
   'input',
   throttle(() => {
-    const settings = {
+    const formContent = {
       email: email.value,
       message: message.value,
     };
 
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(settings));
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(formContent));
   }, 500)
 );
 
 form.addEventListener('submit', e => {
-  e.preventDefault();
-
   try {
+    e.preventDefault();
     const formValues = localStorage.getItem(LOCALSTORAGE_KEY);
     if (formValues === null) {
       return undefined;
@@ -34,6 +31,7 @@ form.addEventListener('submit', e => {
           parsedFormValues.email
         }, Message: ${parsedFormValues.message}`
       );
+      form.reset();
       localStorage.clear();
     }
   } catch (error) {
@@ -48,10 +46,12 @@ function updateForm() {
       return undefined;
     } else {
       const parsedFormValues = JSON.parse(formValues);
-      email.textContent = parsedFormValues.email;
-      message.textContent = parsedFormValues.message;
+      email.value = parsedFormValues.email;
+      message.value = parsedFormValues.message;
     }
   } catch (error) {
     console.error('Get state error: ', error.message);
   }
 }
+
+updateForm();

@@ -23,10 +23,6 @@ player.on(
 
 player
   .setCurrentTime(localStorage.getItem(LOCALSTORAGE_KEY))
-  .then(function (seconds) {
-    seconds = localStorage.getItem(LOCALSTORAGE_KEY);
-    console.log(localStorage.getItem(LOCALSTORAGE_KEY));
-  })
   .catch(function (error) {
     switch (error.name) {
       case 'RangeError':
