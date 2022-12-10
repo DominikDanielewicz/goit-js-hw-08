@@ -32,7 +32,7 @@ form.addEventListener('submit', e => {
         }, Message: ${parsedFormValues.message}`
       );
       form.reset();
-      localStorage.clear();
+      localStorage.removeItem(LOCALSTORAGE_KEY);
     }
   } catch (error) {
     console.error('Get state error: ', error.message);

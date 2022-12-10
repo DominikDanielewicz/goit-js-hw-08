@@ -21,18 +21,20 @@ player.on(
   }, 1000)
 );
 
-player
-  .setCurrentTime(localStorage.getItem(LOCALSTORAGE_KEY))
-  .catch(function (error) {
-    switch (error.name) {
-      case 'RangeError':
-        console.log(
-          'the time was less than 0 or greater than the video’s duration'
-        );
-        break;
+if (localStorage.getItem(LOCALSTORAGE_KEY) !== null) {
+  player
+    .setCurrentTime(localStorage.getItem(LOCALSTORAGE_KEY))
+    .catch(function (error) {
+      switch (error.name) {
+        case 'RangeError':
+          console.log(
+            'the time was less than 0 or greater than the video’s duration'
+          );
+          break;
 
-      default:
-        console.log('some other error occurred');
-        break;
-    }
-  });
+        default:
+          console.log('some other error occurred');
+          break;
+      }
+    });
+}
